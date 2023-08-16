@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block body %}
+<h1 style="text-align: center;"><strong>Assign Delivery</strong></h1>
+<div style="width: 50%;margin-top: 5%;text-align: center;margin-left: 25%;">
+  
+  <form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="name">Sender:</label>
+      <input type="text" value="{{obj.sender}}" class="form-control" readonly>
+    </div>
+    <div class="form-group">
+      <label for="pwd">Assign Rider:</label>
+      {% render_field form.rider class="form-control" %}
+    </div>
+    
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+</div>
+  
+{% endblock body %}

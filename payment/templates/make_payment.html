@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <div>
+    <h4>heads Up Your about Paying {{amount}}<small>ENG</small> To deliverd {{var.package_name}} to {{var.recipinet_address}}</h4><br>
+  </div>
+
+  <button onclick="paywithPaystack()" class="btn btn-primary">Make Payment</button>
+
+  <script>
+    function paywithPaystack() {
+      let currency = 'ENG';
+      let plan = "";
+      // الكود الذي تم انشائه تلقائيا
+      let ref = '{{payment.ref}}';
+      // قيمة المبلغ المدفوع
+      let amount = '{{payment.amount}}';
+      let obj = {
+        // settings.paystack_public_key
+        key: '{{paystack_public_key}}',
+        // الايميل من المودل
+        email: '{{payment.email}}',
+        // قيمه المبلغ في 100
+        amount: '{{amount_value}}',
+        // جلب الرف
+        ref: ref,
+        callback: function (response) {
+          window.location.href = "{% url 'verify_payment' payment.ref %}"
+        },
+      };
+      if (Boolean(currency)) {
+        obj.currency = currency.toUpperCase();
+      }
+      if (Boolean(plan)) {
+        obj.plan = plan;
+      }
+      var handler = PaystackPop.setup(obj);
+      handler.openIframe();
+    }
+  </script>
+{% endblock body %}

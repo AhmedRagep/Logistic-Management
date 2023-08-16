@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">Delivery Queue</h3>
+    <table class="table table-bordered table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Sender</th>
+          <th scope="col">package name</th>
+          <th scope="col">pickup address</th>
+          <th scope="col">recipinet name</th>
+          <th scope="col">recipinet phone</th>
+          <th scope="col">recipinet address</th>
+          <th scope="col">Status</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for obj in obj %}
+        <tr>
+          <th>{{obj.sender}}</th>
+          <th>{{obj.package_name}}</th>
+          <td>{{obj.pickup_address}}</td>
+          <td>{{obj.recipinet_name}}</td>
+          <td>{{obj.recipinet_phone}}</td>
+          <td>{{obj.recipinet_address}}</td>
+          {% if obj.has_rider %}
+            <td><span class="badge badge-success">Success</span></td>
+          {% else %}
+            <td><span class="badge badge-warning">Pending</span></td>
+          {% endif %}
+          <td><a href="{% url 'assign_delivery' obj.pk %}" class="badge badge-success">Assign Rider</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock body %}

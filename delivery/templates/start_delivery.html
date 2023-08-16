@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load bootstrap4 %}
+{% block body %}
+<div class="card" style="width: 50%;margin-left: 25%;text-align: center;">
+  <div class="card-body">
+    <form method="POST">
+      {% csrf_token %}
+      <label class="form-lable">Sender</label>
+      <input type="input" class="form-control" value="{{request.user.username}}" readonly>
+      {% bootstrap_form form %}
+      {% buttons %}
+        <button type="submit" class="btn btn-primary">Submit</button>
+      {% endbuttons %}
+    </form>
+  </div>
+</div>
+{% endblock body %}
